@@ -1,0 +1,19 @@
+name: rick_and_morty_repository
+description: A new Flutter package project.
+version: 0.0.1
+homepage:
+publish_to: none
+
+environment:
+  sdk: ">=2.16.1 <3.0.0"
+
+dependencies:
+  equatable: ^2.0.3
+  json_annotation: ^4.5.0
+  rick_and_morty_api:
+    path: ../rick_and_morty_api
+
+dev_dependencies:
+  flutter_lints: ^1.0.0
+  build_runner: ^2.1.11
+  json_serializable: ^6.2.0

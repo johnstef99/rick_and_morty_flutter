@@ -1,0 +1,130 @@
+
+Running "flutter pub get" in rick_and_morty_bloc...              1,467ms
+Using hardware rendering with device sdk gphone x86 arm. If you notice graphics artifacts, consider enabling software rendering with "--enable-software-rendering".
+Launching lib/main.dart on sdk gphone x86 arm in debug mode...
+Running Gradle task 'assembleDebug'...                             13.7s
+✓  Built build/app/outputs/flutter-apk/app-debug.apk.
+Installing build/app/outputs/flutter-apk/app.apk...                559ms
+Syncing files to device sdk gphone x86 arm...                       79ms
+
+Flutter run key commands.
+r Hot reload. 🔥🔥🔥
+R Hot restart.
+h List all available interactive commands.
+d Detach (terminate "flutter run" but leave application running).
+c Clear the screen
+q Quit (terminate the application on the device).
+
+💪 Running with sound null safety 💪
+
+An Observatory debugger and profiler on sdk gphone x86 arm is available at: http://127.0.0.1:38125/_RnppXzoYVU=/
+The Flutter DevTools debugger and profiler on sdk gphone x86 arm is available at: http://127.0.0.1:9103?uri=http://127.0.0.1:38125/_RnppXzoYVU=/
+
+Performing hot reload...                                        
+Reloaded 5 of 999 libraries in 270ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 356ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 330ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 284ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 301ms.
+
+Performing hot reload...                                        
+Reloaded 5 of 999 libraries in 349ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 340ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 323ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 355ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 358ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 322ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 314ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 280ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 373ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 351ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 326ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 310ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 391ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 350ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 321ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 362ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 346ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 358ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 365ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 344ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 304ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 347ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 350ms.
+
+Performing hot reload...                                        
+lib/ui/widgets/character_card.dart:48:36: Error: Expected an identifier, but got ','.
+Try inserting an identifier before ','.
+                      style: const ,
+                                   ^
+lib/ui/widgets/character_card.dart:48:36: Error: Expected '(' after this.
+                      style: const ,
+                                   ^
+Try again after fixing the above error(s).
+
+Performing hot reload...                                        
+Reloaded 5 of 999 libraries in 353ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 313ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 372ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 268ms.
+
+Performing hot reload...                                        
+Reloaded 1 of 999 libraries in 360ms.
