@@ -83,13 +83,10 @@ class _Name extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Hero(
-          tag: character.id,
-          child: Text(
-            character.name,
-            style: nameTextStyle,
-            maxLines: 2,
-          ),
+        Text(
+          character.name,
+          style: nameTextStyle,
+          maxLines: 2,
         ),
         Row(
           children: [
@@ -169,13 +166,10 @@ class _Image extends StatelessWidget {
           topLeft: Radius.circular(borderRadius),
           bottomLeft: Radius.circular(borderRadius),
         ),
-        child: Hero(
-          tag: imageUrl,
-          child: CachedNetworkImage(
-            imageUrl: imageUrl,
-            fit: BoxFit.cover,
-            height: double.infinity,
-          ),
+        child: CachedNetworkImage(
+          imageUrl: imageUrl,
+          fit: BoxFit.cover,
+          height: double.infinity,
         ),
       ),
     );
