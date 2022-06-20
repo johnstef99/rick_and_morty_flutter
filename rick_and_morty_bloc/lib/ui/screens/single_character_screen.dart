@@ -41,6 +41,7 @@ class SingleCharacterView extends StatelessWidget {
         slivers: [
           _AppBar(),
           _InfoSection(),
+          _EpisodesSection(),
         ],
       ),
     );
@@ -55,7 +56,7 @@ class _InfoSection extends StatelessWidget {
     return BlocBuilder<SingleCharacterCubit, SingleCharacterState>(
       builder: (context, state) {
         switch (state.status) {
-          case SingleCharacterStateStatus.loading:
+          case SingleCharacterStateStatus.loadingChar:
             return const SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.only(top: 20),
@@ -64,7 +65,7 @@ class _InfoSection extends StatelessWidget {
                 ),
               ),
             );
-          case SingleCharacterStateStatus.failure:
+          case SingleCharacterStateStatus.failureChar:
             return SliverFillRemaining(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -78,7 +79,10 @@ class _InfoSection extends StatelessWidget {
                 ],
               ),
             );
-          case SingleCharacterStateStatus.success:
+          case SingleCharacterStateStatus.successEpisodes:
+          case SingleCharacterStateStatus.failureEpisodes:
+          case SingleCharacterStateStatus.loadingEpisodes:
+          case SingleCharacterStateStatus.successChar:
             final character = state.character!;
             return SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
@@ -155,7 +159,7 @@ class _AppBar extends StatelessWidget {
     return BlocBuilder<SingleCharacterCubit, SingleCharacterState>(
       builder: (context, state) {
         switch (state.status) {
-          case SingleCharacterStateStatus.failure:
+          case SingleCharacterStateStatus.failureChar:
             return SliverAppBar(
               stretch: true,
               expandedHeight: h * 0.3,
@@ -169,15 +173,19 @@ class _AppBar extends StatelessWidget {
                 ),
               ),
             );
-          case SingleCharacterStateStatus.loading:
-          case SingleCharacterStateStatus.success:
+          case SingleCharacterStateStatus.loadingEpisodes:
+          case SingleCharacterStateStatus.failureEpisodes:
+          case SingleCharacterStateStatus.successEpisodes:
+          case SingleCharacterStateStatus.loadingChar:
+          case SingleCharacterStateStatus.successChar:
             return SliverAppBar(
               stretch: true,
               expandedHeight: h * 0.3,
               flexibleSpace: FlexibleSpaceBar(
-                title:
-                    state.status.isLoading ? null : Text(state.character!.name),
-                background: state.status.isLoading
+                title: state.status.isLoadingChar
+                    ? null
+                    : Text(state.character!.name),
+                background: state.status.isLoadingChar
                     ? null
                     : BlackOverlay(
                         child: CachedNetworkImage(
@@ -185,6 +193,77 @@ class _AppBar extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                       ),
+              ),
+            );
+        }
+      },
+    );
+  }
+}
+
+class _EpisodesSection extends StatelessWidget {
+  const _EpisodesSection({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SingleCharacterCubit, SingleCharacterState>(
+      builder: (context, state) {
+        switch (state.status) {
+          case SingleCharacterStateStatus.failureChar:
+          case SingleCharacterStateStatus.loadingChar:
+            return const SliverToBoxAdapter();
+          case SingleCharacterStateStatus.successChar:
+          case SingleCharacterStateStatus.loadingEpisodes:
+            return const SliverToBoxAdapter(
+              child: Center(child: CircularProgressIndicator()),
+            );
+          case SingleCharacterStateStatus.failureEpisodes:
+            return const SliverToBoxAdapter(
+              child: Text('Could not load episodes'),
+            );
+          case SingleCharacterStateStatus.successEpisodes:
+            final List<String> seasons = state.episodes!
+                .map((e) => e.episode.substring(1, 3))
+                .toSet()
+                .toList();
+            return SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate.fixed(
+                  [
+                    for (String season in seasons) ...[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          'Season $season',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Wrap(
+                        children: [
+                          for (int? episode in state.episodes!
+                              .where((e) => e.episode.substring(1, 3) == season)
+                              .map((e) =>
+                                  int.tryParse(e.episode.substring(4, 6)))
+                              .toList())
+                            if (episode != null)
+                              SizedBox(
+                                width: 40,
+                                height: 40,
+                                child: Card(
+                                  child:
+                                      Center(child: Text(episode.toString())),
+                                  shape: const CircleBorder(),
+                                ),
+                              )
+                        ],
+                      )
+                    ]
+                  ],
+                ),
               ),
             );
         }

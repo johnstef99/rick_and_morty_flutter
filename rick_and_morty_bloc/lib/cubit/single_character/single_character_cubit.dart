@@ -12,22 +12,45 @@ class SingleCharacterCubit extends Cubit<_State> {
     required int characterId,
     required RickAndMortyRepository repo,
   })  : _repo = repo,
-        super(const _State(status: _Status.loading)) {
+        super(const _State(status: _Status.loadingChar)) {
     fetchCharacter(characterId);
   }
 
   final RickAndMortyRepository _repo;
 
   Future<void> fetchCharacter(int characterId) async {
-    emit(state.copyWith(status: _Status.loading));
+    emit(state.copyWith(status: _Status.loadingChar));
+
+    await _repo.getSingleCharacter(characterId).then(
+      (character) {
+        emit(
+          state.copyWith(
+            status: _Status.successChar,
+            character: character,
+          ),
+        );
+        fetchRelatedEpisodes(character.episodesId);
+      },
+    ).catchError(
+      (_) {
+        emit(state.copyWith(status: _Status.failureChar));
+      },
+    );
+  }
+
+  Future fetchRelatedEpisodes(List<int> episodesId) async {
+    emit(state.copyWith(status: _Status.loadingEpisodes));
 
     await _repo
-        .getSingleCharacter(characterId)
+        .getMultipleEpisodes(episodesId)
         .then(
-          (character) => emit(
-            state.copyWith(status: _Status.success, character: character),
-          ),
+          (episodes) => emit(state.copyWith(
+            episodes: episodes,
+            status: _Status.successEpisodes,
+          )),
         )
-        .catchError((_) => emit(state.copyWith(status: _Status.failure)));
+        .catchError(
+          (_) => emit(state.copyWith(status: _Status.failureEpisodes)),
+        );
   }
 }
