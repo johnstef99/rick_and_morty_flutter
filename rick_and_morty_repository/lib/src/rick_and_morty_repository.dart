@@ -24,4 +24,9 @@ class RickAndMortyRepository {
     final res = await _apiClient.getSingleCharacter(characterId);
     return res;
   }
+
+  Future<List<Episode>> getMultipleEpisodes(List<int> episodesId) async {
+    final res = await _apiClient.getMultipleEpisodes(episodesId);
+    return res;
+  }
 }
