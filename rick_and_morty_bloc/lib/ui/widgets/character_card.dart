@@ -87,6 +87,7 @@ class _Name extends StatelessWidget {
           character.name,
           style: nameTextStyle,
           maxLines: 2,
+          overflow: TextOverflow.ellipsis,
         ),
         Row(
           children: [
@@ -103,6 +104,7 @@ class _Name extends StatelessWidget {
               '${character.status.name.toCapitalize()} - ${character.species.toCapitalize()}',
               style: statusTextStyle,
               maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             )
           ],
         ),
@@ -139,11 +141,13 @@ class _Info extends StatelessWidget {
           description,
           style: descTextStyle,
           maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
         Text(
           info.toCapitalize(),
           style: infoTextStyle,
           maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
