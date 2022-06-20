@@ -34,8 +34,11 @@ class _CharactersViewState extends State<CharactersView> {
     super.initState();
     _scrollController = ScrollController()
       ..addListener(() async {
+        // Start loading more after reaching the last character card
+        // maxScrollExtent-CharacterCard.height is used because the last widget
+        // is the CircularProgressIndicator
         if (_scrollController.position.pixels >=
-            _scrollController.position.maxScrollExtent) {
+            _scrollController.position.maxScrollExtent - CharacterCard.height) {
           context.read<CharactersCubit>().loadMore();
         }
       });
