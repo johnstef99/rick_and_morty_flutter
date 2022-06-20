@@ -20,9 +20,13 @@ extension IsCharactersStateStatus on CharactersStateStatus {
 class CharactersState extends Equatable {
   final CharactersStateStatus status;
   final GetAllCharactersResponse? response;
+  final List<Episode>? firstEpisodes;
 
-  const CharactersState(
-      {this.status = CharactersStateStatus.initial, this.response});
+  const CharactersState({
+    this.status = CharactersStateStatus.initial,
+    this.response,
+    this.firstEpisodes,
+  });
 
   factory CharactersState.fromJson(Map<String, dynamic> json) =>
       _$CharactersStateFromJson(json);
@@ -30,10 +34,12 @@ class CharactersState extends Equatable {
   CharactersState copyWith({
     CharactersStateStatus? status,
     GetAllCharactersResponse? response,
+    List<Episode>? firstEpisodes,
   }) =>
       CharactersState(
         status: status ?? this.status,
         response: response ?? this.response,
+        firstEpisodes: firstEpisodes ?? this.firstEpisodes,
       );
 
   @override

@@ -102,6 +102,10 @@ class _CharactersViewState extends State<CharactersView> {
                             padding: const EdgeInsets.symmetric(vertical: 5),
                             child: CharacterCard(
                               character: char,
+                              firstEpisodeName: state.firstEpisodes!
+                                  .firstWhere(
+                                      (e) => e.id == char.firstEpisodeId)
+                                  .name,
                               onTap: () {
                                 Navigator.of(context)
                                     .push(SingleCharacterPage.route(char.id));

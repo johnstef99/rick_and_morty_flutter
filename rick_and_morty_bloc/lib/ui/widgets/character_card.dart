@@ -7,10 +7,12 @@ class CharacterCard extends StatelessWidget {
   const CharacterCard({
     Key? key,
     required this.character,
+    required this.firstEpisodeName,
     this.onTap,
   }) : super(key: key);
 
   final Character character;
+  final String firstEpisodeName;
   final GestureTapCallback? onTap;
 
   static const double _borderRadius = 10;
@@ -44,10 +46,9 @@ class CharacterCard extends StatelessWidget {
                         description: 'Last known location:',
                         info: character.location.name,
                       ),
-                      //TODO: show first episode name
                       _Info(
                         description: 'First seen in:',
-                        info: character.origin.name,
+                        info: firstEpisodeName,
                       ),
                     ],
                   ),

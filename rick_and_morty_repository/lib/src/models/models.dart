@@ -15,6 +15,8 @@ extension CharacterX on Character {
   /// Get ids from episodes urls
   List<int> get episodesId => episode.map((e) => parseEpisodeUrl(e)).toList()
     ..removeWhere((e) => e == -1);
+
+  int get firstEpisodeId => parseEpisodeUrl(episode.first);
 }
 
 extension ListCharacterX on List<Character> {

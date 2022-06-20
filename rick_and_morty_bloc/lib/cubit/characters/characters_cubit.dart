@@ -27,17 +27,21 @@ class CharactersCubit extends HydratedCubit<CharactersState> {
   Future<void> getCharacters({GetAllCharactersRequest? req}) async {
     emit(state.copyWith(status: CharactersStateStatus.emptyLoading));
 
-    await _repo
-        .getAllCharacters()
-        .then(
-          (resp) => emit(state.copyWith(
-            status: CharactersStateStatus.success,
-            response: resp,
-          )),
-        )
-        .catchError(
-          (_) => emit(state.copyWith(status: CharactersStateStatus.failure)),
-        );
+    await _repo.getAllCharacters().then(
+      (resp) async {
+        final episodes = await _repo.getMultipleEpisodes(
+            resp.characters.firstEpisodeId.toSet().toList());
+        emit(state.copyWith(
+          status: CharactersStateStatus.success,
+          response: resp,
+          firstEpisodes: episodes,
+        ));
+      },
+    ).catchError(
+      (_) {
+        emit(state.copyWith(status: CharactersStateStatus.failure));
+      },
+    );
   }
 
   Future<void> loadMore() async {
@@ -48,19 +52,32 @@ class CharactersCubit extends HydratedCubit<CharactersState> {
 
     await _repo
         .getAllCharacters(
-          req: GetAllCharactersRequest(page: state.response!.page + 1),
-        )
+      req: GetAllCharactersRequest(page: state.response!.page + 1),
+    )
         .then(
-          (resp) => emit(state.copyWith(
+      (resp) async {
+        final episodes = await _repo.getMultipleEpisodes(
+          resp.characters.firstEpisodeId
+            ..removeWhere(
+              (episodeId) => state.firstEpisodes!.any((alreadyCachedEpisode) =>
+                  alreadyCachedEpisode.id == episodeId),
+            ),
+        );
+        emit(
+          state.copyWith(
             status: CharactersStateStatus.success,
             response: resp.copyWith(
               characters: state.response!.characters..addAll(resp.characters),
             ),
-          )),
-        )
-        .catchError(
-          (_) => emit(state.copyWith(status: CharactersStateStatus.failure)),
+            firstEpisodes: state.firstEpisodes!..addAll(episodes),
+          ),
         );
+      },
+    ).catchError(
+      (_) {
+        emit(state.copyWith(status: CharactersStateStatus.failure));
+      },
+    );
   }
 
   @override
