@@ -1,7 +1,6 @@
 name: rick_and_morty_repository
-description: A new Flutter package project.
+description: A repository for the demo app rick_and_morty_bloc
 version: 0.0.1
-homepage:
 publish_to: none
 
 environment:
