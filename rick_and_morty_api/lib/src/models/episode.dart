@@ -5,7 +5,6 @@ part 'episode.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Episode {
-  final Info info;
   final int id;
   final String name;
   final String airDate;
@@ -15,7 +14,6 @@ class Episode {
   final DateTime created;
 
   Episode({
-    required this.info,
     required this.id,
     required this.name,
     required this.airDate,
