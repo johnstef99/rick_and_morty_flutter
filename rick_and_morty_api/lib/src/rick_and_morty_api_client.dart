@@ -13,6 +13,9 @@ class SingleCharacterRequestFailure implements Exception {}
 /// Exception thrown when character with the provided id is not found
 class CharacterNotFoundFailure implements Exception {}
 
+/// Exception thrown when character with the provided id is not found
+class MultipleEpisodesNotFoundFailure implements Exception {}
+
 /// {@template rick_and_morty_api_client}
 /// Dart API Client which wraps the [Rick and Morty API](https://rickandmortyapi.com/).
 /// {@endtemplate}
@@ -65,5 +68,23 @@ class RickAndMortyApiClient {
     ) as Map<String, dynamic>;
 
     return Character.fromJson(body);
+  }
+
+  Future<List<Episode>> getMultipleEpisodes(List<int> episodesId) async {
+    final req = Uri.https(
+      _baseUrl,
+      '/api/episode/${episodesId.join(',')}',
+    );
+    final res = await _httpClient.get(req);
+
+    if (res.statusCode != 200) {
+      throw MultipleEpisodesNotFoundFailure();
+    }
+
+    final body = jsonDecode(
+      res.body,
+    ) as List<Map<String, dynamic>>;
+
+    return body.map((e) => Episode.fromJson(e)).toList();
   }
 }
