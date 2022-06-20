@@ -71,6 +71,7 @@ class RickAndMortyApiClient {
   }
 
   Future<List<Episode>> getMultipleEpisodes(List<int> episodesId) async {
+    if (episodesId.isEmpty) return [];
     final req = Uri.https(
       _baseUrl,
       '/api/episode/${episodesId.join(',')}',
@@ -81,10 +82,19 @@ class RickAndMortyApiClient {
       throw MultipleEpisodesNotFoundFailure();
     }
 
-    final body = jsonDecode(
-      res.body,
-    ) as List<Map<String, dynamic>>;
+    switch (episodesId.length) {
+      case 1:
+        final body = jsonDecode(
+          res.body,
+        ) as Map<String, dynamic>;
 
-    return body.map((e) => Episode.fromJson(e)).toList();
+        return [Episode.fromJson(body)];
+      default:
+        final body = jsonDecode(
+          res.body,
+        ) as List;
+
+        return body.map((e) => Episode.fromJson(e)).toList();
+    }
   }
 }
