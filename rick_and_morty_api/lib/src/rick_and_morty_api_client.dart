@@ -70,6 +70,7 @@ class RickAndMortyApiClient {
     return Character.fromJson(body);
   }
 
+  /// Gets multiple [Episode] from a list of ids
   Future<List<Episode>> getMultipleEpisodes(List<int> episodesId) async {
     if (episodesId.isEmpty) return [];
     final req = Uri.https(
