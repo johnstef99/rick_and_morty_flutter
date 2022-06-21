@@ -9,16 +9,17 @@ typedef _State = SingleCharacterState;
 
 class SingleCharacterCubit extends Cubit<_State> {
   SingleCharacterCubit({
-    required int characterId,
+    required this.characterId,
     required RickAndMortyRepository repo,
   })  : _repo = repo,
         super(const _State(status: _Status.loadingChar)) {
-    fetchCharacter(characterId);
+    fetchCharacter();
   }
 
   final RickAndMortyRepository _repo;
+  final int characterId;
 
-  Future<void> fetchCharacter(int characterId) async {
+  Future<void> fetchCharacter() async {
     emit(state.copyWith(status: _Status.loadingChar));
 
     await _repo.getSingleCharacter(characterId).then(
