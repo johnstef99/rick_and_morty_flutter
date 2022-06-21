@@ -70,11 +70,12 @@ class _InfoSection extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text('Something went wrong'),
+                children: [
+                  const Text('Something went wrong'),
                   ElevatedButton(
-                    onPressed: null,
-                    child: Text('Tap here to load character againg'),
+                    onPressed: () =>
+                        context.read<SingleCharacterCubit>().fetchCharacter(),
+                    child: const Text('Tap to try load character againg'),
                   ),
                 ],
               ),
